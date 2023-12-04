@@ -1,0 +1,9 @@
+.form-login {
+    max-width: 600px; /* フォームの最大幅を設定 */
+    margin: auto;
+    margin-top: 100px;
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}

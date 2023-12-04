@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf/org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>支払い追加</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	<link rel="stylesheet" th:href="@{/css/addition.css}">
+</head>
+
+<body>
+	<h2 class="page-title">支払い追加</h2>
+	<form id="budge-form" method="post" th:action="@{/addition}" class="form-signup" th:object="${budgeForm}">
+		<div class="form-group">
+			<label for="itemName">品名</label>
+			<input type="text" class="form-control" placeholder="品名を入力" th:field="*{itemname}"
+				th:errorclass="is-invalid">
+			<div class="invalid-feedback" th:errors="*{itemname}"></div>
+		</div>
+		<div class="form-group">
+			<label for="money">金額</label>
+			<input type="text" class="form-control" placeholder="金額を入力" th:field="*{money}"th:errorclass="is-invalid">
+			<div class="invalid-feedback" th:errors="*{money}"></div>
+		</div>
+		<label for="type">種類</label>
+		<select th:field="*{type}" class="form-control" th:errorclass="is-invalid"> 
+			<option th:each="option1, loopStatus : ${options1}" th:value="${loopStatus.index + 1}" th:text="${option1}">
+			</option>
+		</select>
+		<div class="invalid-feedback" th:errors="*{type}"></div>
+		<label for="format">形式</label>
+		<select th:field="*{format}" class="form-control" th:errorclass="is-invalid">
+			<option th:each="option2, loopStatus : ${options2}" th:value="${loopStatus.index + 1}" th:text="${option2}">
+			</option>
+		</select>
+		<div class="invalid-feedback" th:errors="*{format}"></div>
+		<div class="form-group">
+			<label for="text">購入理由</label>
+			<input type="text" class="form-control" placeholder="理由を入力" th:field="*{text}">
+		</div>
+		<button type="submit" class="btn btn-success mr-2">追加</button>
+		<input type="hidden" th:field="*{itemid}" />
+	</form>
+	<div class="d-flex align-items-center">
+		<a href="http://localhost:8080/list" class="btn btn-primary cancel-button">キャンセル</a>
+	</div>
+</body>
+
+</html>

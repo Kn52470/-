@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- Mapperとxmlのマッピング -->
+<mapper namespace="com.example.demo.repository.UserMapper">
+
+	<!-- ログインユーザー情報取得 -->
+	<select id="findByUser" resultType="User">
+		SELECT *
+		FROM account_info
+		WHERE account_name = #{accountname}
+	</select>
+
+	<!-- ユーザー情報登録 -->
+	<insert id="insertUser">
+		INSERT INTO account_info (account_name, password,
+		birthday)
+		VALUES(
+		#{accountname},
+		#{password},
+		#{birthday}
+		)
+	</insert>
+
+	<!-- パスワード更新 -->
+	<update id="updatePass">
+		UPDATE account_info
+		SET password = #{password}
+		WHERE account_name= #{accountname}
+		AND birthday = #{birthday};
+
+	</update>
+
+
+</mapper>

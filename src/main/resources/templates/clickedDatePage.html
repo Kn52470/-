@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf/org">
+<link rel="stylesheet" th:href="@{/css/clickedDatePage.css}">
+
+<head>
+<meta charset="UTF-8">
+<title>支払い情報（日）</title>
+</head>
+<body>
+<div>
+	<header>
+			<h1 id="header">支払い</h1>
+			<form method="get" th:action="@{/list}" class="form-container">
+				<button class="ListBtn">前のページへ</button>
+			</form>
+	</header>
+</div>
+	<div class="container mt-4">
+		<table class="budget-table">
+			<thead>
+				<tr>
+					<th class="th-width"><label th:text="#{ProductName}"></label></th>
+					<th class="th-width"><label th:text="#{Type}"></th>
+					<th class="th-width"><label th:text="#{Format}"></th>
+					<th class="th-width"><label th:text="#{Text}"></th>
+					<th class="th-width"><label th:text="#{Money}"></th>
+					<th class="th-width"><label th:text="#{PaymentDay}"></th>
+					<th class="th-width"><label th:text="#{Operation}"></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="selectDay : ${selectDay}">
+					<td th:text="${selectDay.itemname}"></td>
+					<td>
+						<span th:if="${selectDay.type == 1}">住宅費</span>
+						<span th:if="${selectDay.type == 2}">食費</span>
+						<span th:if="${selectDay.type == 3}">水道光熱費</span>
+						<span th:if="${selectDay.type == 4}">通信費</span>
+						<span th:if="${selectDay.type == 5}">車両・交通費</span>
+						<span th:if="${selectDay.type == 6}">保険料</span>
+						<span th:if="${selectDay.type == 7}">学費</span>
+						<span th:if="${selectDay.type == 8}">その他</span>
+					</td>
+					<td>
+						<span th:if="${selectDay.format == 1}">変動費</span>
+						<span th:if="${selectDay.format == 2}">固定費</span>
+					</td>
+					<td th:text="${selectDay.text}"></td>
+					<td th:text="${selectDay.money}"></td>
+					<td th:text="${#dates.format(selectDay.registrationdate, 'yyyy-MM-dd')}"></td>
+					<td>
+						<div class="btn-group" role="group" aria-label="Button Group">
+							<!-- 削除ボタン -->
+							<form action="/delete" method="post" class="btn-group">
+								<input type="hidden" name="itemid" th:value="${selectDay.itemid}" />
+								<button type="submit" class="btn btn-danger">削除</button>
+							</form>
+						</div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>

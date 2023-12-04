@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf/org">
+<link rel="stylesheet" th:href="@{/css/pastPayDetail.css}">
+<head>
+<meta charset="UTF-8">
+<title>指定月の支払い詳細</title>
+</head>
+<body>
+<div>
+		<header>
+			<h1 id="header">指定月の支払い詳細</h1>
+			<form method="get" th:action="@{/list}" class="form-container">
+				<button class="ListBtn">前のページへ</button>
+			</form>
+		</header>
+	</div>
+	<div>
+		<th:each="monthPayments:${monthPayments}">
+			<span class="totalpayment" th:text="'現在の支払い合計 ' + ${monthPayments.totalpayment ?: 0} + ' 円'"
+				th:style="${monthPayments.totalpayment > monthPayments.budgetamount} ? 'font-size: 50px; color: red;' : 'font-size: 50px; color: black;'">
+			</span>
+			<span class="budgetamount" th:text="'予算上限 ' + (${monthPayments.budgetamount} ?: 0) + ' 円'"></span>
+	</div>
+	<hr>
+	<div>
+		<h1>支払い一覧</h1>
+	</div>
+	<div class="container mt-4">
+		<table class="budget-table">
+			<thead>
+				<tr>
+					<th class="th-width"><label th:text="#{ProductName}"></label></th>
+					<th class="th-width"><label th:text="#{Type}"></th>
+					<th class="th-width"><label th:text="#{Format}"></th>
+					<th class="th-width"><label th:text="#{Text}"></th>
+					<th class="th-width"><label th:text="#{Money}"></th>
+					<th class="th-width"><label th:text="#{PaymentDay}"></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="pastPayDetail : ${pastPayDetail}">
+					<td th:text="${pastPayDetail.itemname}"></td>
+					<td>
+						<span th:if="${pastPayDetail.type == 1}">住宅費</span>
+						<span th:if="${pastPayDetail.type == 2}">食費</span>
+						<span th:if="${pastPayDetail.type == 3}">水道光熱費</span>
+						<span th:if="${pastPayDetail.type == 4}">通信費</span>
+						<span th:if="${pastPayDetail.type == 5}">車両・交通費</span>
+						<span th:if="${pastPayDetail.type == 6}">保険料</span>
+						<span th:if="${pastPayDetail.type == 7}">学費</span>
+						<span th:if="${pastPayDetail.type == 8}">その他</span>
+					</td>
+					<td>
+						<span th:if="${pastPayDetail.format == 1}">変動費</span>
+						<span th:if="${pastPayDetail.format == 2}">固定費</span>
+					</td>
+					<td th:text="${pastPayDetail.text}"></td>
+					<td th:text="${pastPayDetail.money}"></td>
+					<td th:text="${#dates.format(pastPayDetail.registrationdate, 'yyyy-MM-dd')}"></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div>
+		<h1>固定費</h1>
+		<table class="budget-table">
+			<thead>
+				<tr>
+					<th class="th-width">品名</th>
+					<th class="th-width">種別</th>
+					<th class="th-width">形式</th>
+					<th class="th-width">理由</th>
+					<th class="th-width">金額（円)</th>
+					<th class="th-width">支払い日</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="detailPastFixedCosts : ${detailPastFixedCosts}">
+					<td th:text="${detailPastFixedCosts.itemname}"></td>
+					<td>
+						<span th:if="${detailPastFixedCosts.type == 1}">住宅費</span>
+						<span th:if="${detailPastFixedCosts.type == 2}">食費</span>
+						<span th:if="${detailPastFixedCosts.type == 3}">水道光熱費</span>
+						<span th:if="${detailPastFixedCosts.type == 4}">通信費</span>
+						<span th:if="${detailPastFixedCosts.type == 5}">車両・交通費</span>
+						<span th:if="${detailPastFixedCosts.type == 6}">保険料</span>
+						<span th:if="${detailPastFixedCosts.type == 7}">学費</span>
+						<span th:if="${detailPastFixedCosts.type == 8}">その他</span>
+					</td>
+					<td>
+						<span th:if="${detailPastFixedCosts.format == 1}">変動費</span>
+						<span th:if="${detailPastFixedCosts.format == 2}">固定費</span>
+					</td>
+					<td th:text="${detailPastFixedCosts.text}"></td>
+					<td th:text="${detailPastFixedCosts.money}"></td>
+					<td th:text="${#dates.format(detailPastFixedCosts.registrationdate, 'yyyy-MM-dd')}"></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>

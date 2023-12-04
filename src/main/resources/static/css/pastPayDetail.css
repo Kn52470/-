@@ -1,0 +1,109 @@
+header {
+	background-color: rgb(232, 255, 252);
+	padding: 10px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+#header {
+	margin: 0;
+}
+
+
+.budgetamount {
+	font-size: 50px;
+	position: absolute;
+	left: 50%;
+	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+#budgetChange {
+    text-align: right; /* フォーム内のテキストを右寄せ */
+    margin-top: -70px;
+}
+
+#budgebox::placeholder {
+    font-size: 16px; /* プレースホルダーの文字サイズを16pxに設定 */
+}
+
+#budgebox {
+    text-align: left; /* 入力ボックスのテキストを左寄せ（オプション） */
+    
+}
+
+#textbox {
+    width: 300px;
+    height: 40px;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc; /* ボーダーを追加 */
+    border-radius: 5px; /* 角を丸くする */
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); /* ドロップシャドウを追加 */
+}
+
+#textbox:focus {
+    outline: none; /* フォーカス時のアウトラインを非表示 */
+    border-color: #4CAF50; /* フォーカス時のボーダー色を変更 */
+    box-shadow: 0 0 8px rgba(76, 175, 80, 0.6); /* フォーカス時のドロップシャドウを変更 */
+}
+
+#submitBtn {
+    background-color: #4CAF50; /* ボタンの背景色 */
+    color: white; /* ボタンの文字色 */
+    padding: 10px 20px; /* パディング */
+    font-size: 16px; /* フォントサイズ */
+    border: none; /* ボーダーをなしに */
+    border-radius: 5px; /* 角を丸くする */
+    cursor: pointer; /* カーソルをポインターに */
+}
+
+#submitBtn:hover {
+    background-color: #45a049; /* ホバー時の背景色を変更 */
+}
+
+hr {
+    border: none;
+    height: 2px;
+    background-color: #333;
+    margin: 20px 0;
+}
+
+.budget-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.budget-table th, .budget-table td {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+.budget-table th {
+    background-color: #f2f2f2;
+}
+
+.btn-group {
+    display: inline-block;
+}
+
+.form-container {
+    margin-top: 10px; /* 必要に応じて調整 */
+}
+
+.ListBtn {
+    background-color: #4CAF50; /* ボタンの背景色 */
+    color: white; /* ボタンのテキスト色 */
+    padding: 10px 20px; /* ボタン内のパディング */
+    font-size: 16px; /* ボタンのフォントサイズ */
+    border: none; /* ボタンのボーダーなし */
+    border-radius: 5px; /* ボタンの角の丸み */
+    cursor: pointer; /* カーソルをポインターに変更 */
+}
+
+/* ボタンにホバー時のスタイルを追加 */
+.ListBtn:hover {
+    background-color: #45a049; /* ホバー時の背景色 */
+}

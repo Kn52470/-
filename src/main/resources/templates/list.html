@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf/org">
+<!DOCTYPE html>
+<html>
+<link rel="stylesheet" th:href="@{/css/list.css}">
+<script th:src="@{/js/jquery.min.js}" defer></script>
+<script th:src="@{/js/script.js}"></script>
+
+
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>支払い一覧</title>
+</head>
+
+<body>
+	<div class="wrapper">
+		<header>
+			<h1 id="header"></h1>
+			<div style="display: flex">
+				<form id="item-form" method="get" th:action="@{/addition}">
+				<button id="addButton">支払い追加</button>
+				</form>
+				<form method="post" th:action="@{/logout}" class="form-container">
+					<button class="LogoutButton">ログアウト</button>
+				</form>
+			</div>
+		</header>
+	</div>
+	<div class="ca">
+		<table>
+			<tbody>
+				<tr>
+					<td>
+						<div id="next-prev-button">
+							<button id="prev" onclick="prev()">前の月</button>
+							<button id="next" onclick="next()">次の月</button>
+						</div>
+						<div id="calendar"></div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		</form>
+	</div>
+	<div class="ca">
+		<div class="right-align-container">
+			<form id="month_detail" method="get" action="/monthDetail">
+				<tr th:each="total:${total}">
+					<td class="center-cell">
+						<th:block th:each="budget: ${budgetAmount}">
+							<div>
+								<span th:text="'今月の支出は ' + (${total.total_money} ?: 0) + ' 円'"
+      								th:class="${(total.total_money ?: 0) gt budget} ? 'total-money over-budget' : 'total-money'"></span>
+								<span class="budget-amount" th:text="' 予算は ' + (${budget} ?: 0) + ' 円'"></span>
+							</div>
+							<div class="right-align-container">
+								<span class="fixedCosts" th:text="'固定費は ' + ${fixedCosts != null ? fixedCosts : 0} + ' 円'"></span>
+								<input type="submit" value="詳細" class="custom-button btn-block mt-3" />
+							</div>
+						</th:block>
+					</td>
+				</tr>
+			</form>
+			<hr class="long-hr">
+		</div>
+		<div>
+			<h1>過去の支払い</h1>
+		</div>
+		<div style="display: flex;">
+			<div class="left_container">
+				<div th:each="pastPay, iterStat : ${pastPay}" th:if="${iterStat.count <= 6}">
+					<a th:href="@{'/pastPayDetail/' + ${pastPay.formattedmonthyear}}">
+						<span th:text="${pastPay.formattedmonthyear} + '  ' + ${pastPay.totalpayment} + ' 円'"></span>
+					</a>
+					<th:block th:if="${iterStat.count % 6 == 0}">
+						<br />
+					</th:block>
+				</div>
+			</div>
+
+			<div class="right_container">
+				<div th:each="pastPay, iterStat : ${pastPay}" th:if="${iterStat.count > 6}" class="right-align-item">
+					<a th:href="@{'/pastPayDetail/' + ${pastPay.formattedmonthyear}}">
+						<span th:text="${pastPay.formattedmonthyear} +  '   ' + ${pastPay.totalpayment} + ' 円'"></span>
+					</a>
+					<th:block th:if="${iterStat.count % 6 == 0}">
+						<br />
+					</th:block>
+				</div>
+			</div>
+		</div>
+
+	</div>
+	</div>
+	</div>
+	</div>
+</body>
+
+</html>

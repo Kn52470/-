@@ -1,0 +1,67 @@
+body {
+	font-family: Arial, sans-serif;
+	height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin: 0;
+}
+
+.card {
+	border: none;
+	border-radius: 10px;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.custom-margin {
+	margin-bottom: 1rem;
+	/* 余白のサイズを指定 */
+}
+
+.custom-margin-bottom {
+	margin-bottom: 1rem;
+}
+
+
+
+.form-group input {
+	font-size: 30px;
+	/* 入力フィールドのフォントサイズを設定 */
+	padding: 5px;
+	/* 入力フィールドの余白を設定 */
+	width: 80%;
+	/* 入力フィールドの幅を100%に設定 */
+	padding: 5px 10px;
+	/* 上下左右の余白を調整 */
+}
+
+.btn-primary {
+	width: 100%;
+}
+
+.custom-button {
+	background-color: #007bff;
+	/* ボタンの背景色を設定 */
+	color: #fff;
+	/* ボタンの文字色を設定 */
+	border: none;
+	/* ボーダーを削除 */
+	border-radius: 5px;
+	/* 角丸にする */
+	padding: 10px 20px;
+	/* 上下左右の余白を設定 */
+	font-size: 16px;
+	/* フォントサイズを設定 */
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+	/* 影をつける */
+	margin: 0 auto;
+	/* 左右の余白を自動で設定して中央に配置 */
+	display: block;
+	/* ブロック要素に変更し、幅を100%に設定 */
+
+}
+
+.custom-button:hover {
+	background-color: #0056b3;
+	/* ホバー時の背景色を設定 */
+}

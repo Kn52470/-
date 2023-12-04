@@ -1,0 +1,73 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+}
+
+form {
+    max-width: 400px;
+    margin: auto;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+label {
+    font-weight: bold;
+}
+
+input[type="text"],
+select {
+    width: 100%;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+}
+
+select {
+    height: 38px;
+}
+
+.invalid-feedback {
+    color: red;
+    font-size: 0.8rem;
+}
+
+button {
+    margin-top: 1rem;
+}
+
+.btn-primary,
+.btn-success {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border: none;
+}
+
+.btn-success {
+    background-color: #28a745;
+    border: none;
+}
+
+.btn-primary:hover,
+.btn-success:hover {
+    opacity: 0.8;
+}
+
+.page-title {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.cancel-button {
+    margin-top: 1rem;
+    margin-left: 1rem;
+    margin-left: 46rem;
+}
+

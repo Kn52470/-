@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf/org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="stylesheet" th:href="@{/css/styles.css}">
+	<link rel="stylesheet" th:href="@{/css/login.css}">
+	<script th:src="@{/webjars/jquery/jquery.min.js}" defer></script>
+	<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}" defer></script>
+	<title>ログイン</title>
+</head>
+
+<body class="bg-light d-flex align-items-center">
+	<div class="container-lg">
+		<div class="row justify-content-center">
+			<div class="col-md-8 col-lg-6">
+				<div class="card form-login">
+					<form method="post" th:action="@{/login}">
+						<h2>ログイン</h2>
+						<p th:if="${session['SPRING_SECURITY_LAST_EXCEPTION']} != null"
+							th:text="${session['SPRING_SECURITY_LAST_EXCEPTION'].message}" class="text-danger">
+							ログインエラーメッセージ
+						</p>
+						<div class="form-group">
+							<label for="accountname" class="sr-only" th:text="#{accountname}"></label>
+							<input type="text" class="form-control" placeholder="ユーザー名" name="accountname" />
+						</div>
+						<div class="form-group custom-margin">
+							<label for="password" class="sr-only" th:text="#{password}"></label>
+							<input type="password" class="form-control" placeholder="パスワード" name="password" />
+						</div>
+						<div class="row justify-content-center" style="margin-bottom: 1rem;">
+							<div class="col-md-6">
+								<input type="submit" value="ログイン" class="custom-button btn-block mt-3" />
+							</div>
+					</form>
+					<div class="row mb-3">
+						<div class="col-md-6">
+							<form id="forgotPasswordForm" method="get" th:action="@{/updatePass}">
+								<div class="form-group mt-3">
+									<a href="#" id="forgotPasswordLink">
+										<span th:text="#{forgotPassword}">パスワードをお忘れですか？</span>
+									</a>
+								</div>
+							</form>
+						</div>
+					</div>
+
+					<div class="col-md-6 text-right">
+						<form id="registerForm" method="get" th:action="@{/register}">
+							<div class="form-group mt-3">
+								<a href="#" id="registerLink" class="btn btn-primary">
+									<span th:text="#{registerLink}">新規登録</span>
+								</a>
+							</div>
+						</form>
+					</div>
+
+					<script>
+						document.getElementById('forgotPasswordLink').addEventListener('click', function (event) {
+							event.preventDefault();
+							document.getElementById('forgotPasswordForm').submit();
+						});
+					</script>
+					<script>
+						document.getElementById('registerLink').addEventListener('click', function (event) {
+							event.preventDefault();
+							document.getElementById('registerForm').submit();
+						});
+					</script>
+				</div>
+
+			</div>
+		</div>
+	</div>
+	</div>
+</body>
+
+</html>

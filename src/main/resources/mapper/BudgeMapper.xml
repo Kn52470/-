@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- Mapperとxmlのマッピング -->
+<mapper namespace="com.example.demo.repository.BudgeMapper">
+
+	<resultMap id="fixedCostsResult" type="java.lang.Integer" />
+	<resultMap id="paymentsMap" type="Payments">
+		<id property="monthyear" column="month_year" />
+		<result property="totalpayment" column="total_payment" />
+	</resultMap>
+
+
+	<!-- 指定日の情報取得 -->
+	<select id="selectDay" resultType="com.example.demo.model.Budge">
+		SELECT * 
+		FROM 
+			budge_items
+		WHERE 
+			registration_date =#{date}
+	</select>
+
+	<!-- 指定年月の情報取得 -->
+	<select id="pastPayDetail"
+		resultType="com.example.demo.model.Budge">
+		SELECT * 
+		FROM 
+			budge_items
+		WHERE
+			DATE_FORMAT(registration_date, '%Y-%m') = #{formattedmonthyear};
+	</select>
+
+	<!-- 支払い登録 -->
+	<insert id="insertBudge">
+		INSERT INTO budge_items (item_name,
+		type,
+		format,registration_date,text,money)
+		VALUES (
+			#{itemname},
+			#{type},
+			#{format},
+			#{registrationdate},
+			#{text},
+			#{money}
+		)
+	</insert>
+
+	<!-- 月あたりの支払い合計 -->
+	<select id="sumMoneyByMonth" resultType="java.util.Map">
+		SELECT
+			YEAR(registration_date) AS year,
+			MONTH(registration_date) AS month,
+		SUM(money) AS total_money
+		FROM 
+			budge_items
+		WHERE
+			DATE_FORMAT(registration_date, '%Y-%m') = #{targetMonth}
+		GROUP BY year,month
+		ORDER BY year, month;
+	</select>
+
+	<!-- 支払い内容の取得（今月） -->
+	<select id="getAllBudgetItems"
+		resultType="com.example.demo.model.Budge">
+		SELECT * 
+		FROM 
+			budge_items;
+	</select>
+
+	<!-- 今月の固定費合計 -->
+	<select id="getfixedCosts" resultMap="fixedCostsResult">
+		SELECT SUM(money) AS
+		total_money
+		FROM 
+			budge_items
+		WHERE 
+			YEAR(registration_date) =
+			YEAR(CURDATE())
+			AND MONTH(registration_date) = MONTH(CURDATE())
+			AND
+			format = 2;
+	</select>
+
+	<!-- 今月の固定費詳細 -->
+	<select id="getDetailFixedCosts"
+		resultType="com.example.demo.model.Budge">
+		SELECT *
+		FROM
+			 budge_items
+		WHERE
+			format = 2
+			AND
+			MONTH(registration_date) = MONTH(CURRENT_DATE())
+			AND
+			YEAR(registration_date) = YEAR(CURRENT_DATE());
+	</select>
+
+	<!-- 指定月の固定費詳細 -->
+	<select id="getDetailPastFixedCosts"
+		resultType="com.example.demo.model.Budge">
+		SELECT *
+		FROM 
+			budge_items
+		WHERE 
+			registration_date = #{formattedDate} AND format = 2;
+
+	</select>
+
+	<!-- 過去の固定費詳細 -->
+	<select id="getPastFixedCosts"
+		resultType="com.example.demo.model.Budge">
+		WITH RankedItems AS (
+		SELECT
+			item_id,
+			item_name,
+			type,
+			format,
+			registration_date,
+			text,
+			money,
+			ROW_NUMBER() OVER (PARTITION BY item_name
+			ORDER BY item_id) AS rn
+		FROM
+			budge_items
+			WHERE
+			format = 2
+			)
+		SELECT
+			item_id,
+			item_name,
+			type,
+			format,
+			registration_date,
+			text,
+			money
+		FROM
+			RankedItems
+		WHERE
+			rn = 1;
+	</select>
+
+	<!-- 過去の支払い -->
+	<select id="getPastPayments" resultMap="paymentsMap">
+		SELECT
+			DATE_FORMAT(month_year, '%Y-%m') AS formatted_month_year,
+				total_payment
+			FROM payments
+		WHERE
+			 month_year != DATE_FORMAT(NOW(),
+			'%Y-%m-01')
+		ORDER BY month_year DESC
+			LIMIT 12;
+	</select>
+
+	<!-- 今月の支払い合計記録 -->
+	<update id="updateTotalPayment">
+		UPDATE payments
+		SET total_payment = #{total}
+		WHERE
+			month_year = DATE_FORMAT(NOW(), '%Y-%m-01');
+	</update>
+	
+	<!-- 支払い情報取得（今月） -->
+	<select id="monthPayment"
+		resultType="com.example.demo.model.Payments">
+		SELECT *
+		FROM 
+			payments
+		WHERE 
+			month_year = DATE_FORMAT(NOW(),
+		'%Y-%m-01');
+	</select>
+	
+	<!-- 支払い情報取得（過去） -->
+	<select id="pastPayments"
+		resultType="com.example.demo.model.Payments">
+		SELECT * 
+		FROM 
+			payments
+		WHERE month_year =
+		#{formattedmonthyear}
+	</select>
+	
+	<!-- 月の追加 -->
+	<insert id="MonthYear">
+		INSERT IGNORE INTO payments (month_year)
+		VALUES
+		(DATE_FORMAT(NOW(), '%Y-%m-01'));
+	</insert>
+	
+	<!-- 予算上限の取得 -->
+	<select id="getBudgetAmount" resultType="java.lang.Integer">
+		SELECT budget_amount
+		FROM 
+			payments
+		WHERE
+			month_year = #{targetMonthYear}
+	</select>
+	
+	<!-- 予算上限の更新 -->
+	<update id="updateBudgeAmount">
+		UPDATE payments
+		SET budget_amount = #{budgebox}
+		WHERE
+			month_year = DATE_FORMAT(NOW(), '%Y-%m-01');
+	</update>
+	
+	<!-- 固定費取得 -->
+	<select id="getPastFixed"
+		resultType="com.example.demo.model.Budge">
+		SELECT *
+		FROM 
+			budge_items
+		WHERE 
+			item_id = #{itemid};
+	</select>
+
+	<!-- 支払い削除 -->
+	<delete id="deleteItem">
+		DELETE 
+		FROM 
+			budge_items
+		WHERE 
+			item_id = #{itemid};
+	</delete>
+
+</mapper>

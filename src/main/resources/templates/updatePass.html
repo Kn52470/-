@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf/org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>パスワード取得</title>
+	<link rel="stylesheet" th:href="@{/css/register.css}">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+
+<body>
+	 <div class="container">
+        <h2>ユーザ情報を入力してください</h2>
+        <form id="user_form" method="post" th:action="@{/updatePass}" class="form-signup" th:object="${userForm}">
+            <div class="form-group">
+                <label for="accountname">ユーザ名:</label>
+                <input type="text" id="accountname" name="accountname"placeholder="アカウント名" class="form-control"
+                th:field="*{accountname}" th:errorclass="is-invalid">
+                <div class="invalid-feedback" th:errors="*{accountname}"></div>
+            </div>
+            <div class="form-group">
+                <label for="birthday">生年月日:</label>
+                <input type="date" id="birthday" name="birthday"class="form-control" th:field="*{birthday}"th:errorclass="is-invalid">
+                <div class="invalid-feedback" th:errors="*{birthday}"></div>
+            </div>
+        <h2>新しいパスワードを入力してください</h2>
+           <div class="form-group">
+                <input type="password" id="password" name="password"placeholder="パスワード" class="form-control"
+                th:field="*{password}" th:errorclass="is-invalid">
+                <div class="invalid-feedback" th:errors="*{password}"></div>
+            </div>
+            <button type="submit" class="btn btn-primary">更新</button>
+        </form>
+        <div class="d-flex align-items-center my-container">
+			<a href="http://localhost:8080/login" class="btn btn-primary">キャンセル</a>
+		</div>
+    </div>
+</body>
+
+</html>

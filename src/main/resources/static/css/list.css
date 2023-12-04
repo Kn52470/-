@@ -1,0 +1,232 @@
+/* カレンダー全体のスタイル */
+.calendar {
+	font-family: Arial, sans-serif;
+	border-collapse: collapse;
+	width: 100%;
+	font-size: 10px;
+	/* フォントサイズを大きくする */
+	border: 2px solid #000;
+	/* 黒色の枠線を追加 */
+}
+
+/* 曜日の見出しのスタイル */
+.dayOfWeek th {
+	background-color: #00aaff;
+	text-align: center;
+	padding: 35px;
+	/* 余白を大きくする */
+	border: 1px solid #000;
+	/* 黒色の枠線を追加 */
+}
+
+.form-container {
+    margin-left: 10px; /* フォーム間の余白を設定 */
+}
+
+
+/* カレンダーの日付のセルのスタイル */
+td {
+	background-color: #f0f0f0;
+	text-align: center;
+	padding: 20px;
+	/* 余白を大きくする */
+	border: 2px solid #000;
+	/* 黒色の枠線を追加 */
+}
+
+button {
+	background-color: #f0f0f0;
+	/* ボタンの背景色 */
+	color: rgb(0, 0, 0);
+	/* ボタンの文字色 */
+	font-size: 30px;
+	/* ボタンの文字サイズ */
+	padding: 8px;
+	/* ボタンの内側の余白 */
+	border: none;
+	/* ボタンの枠線をなくす */
+	border-radius: 5px;
+	/* ボタンの角を丸くする */
+	cursor: pointer;
+	/* ボタンにカーソルを当てたときのスタイル */
+	margin: 2px;
+	/* ボタンのマージン */
+
+}
+
+button:hover {
+	background-color: rgb(128, 128, 128);
+	/* マウスオーバー時の背景色 */
+}
+
+#prev {
+	background-color: #4caf50;
+	/* ボタンの背景色 */
+	color: #ffffff;
+	/* ボタンの文字色 */
+	font-size: 16px;
+	/* ボタンの文字サイズ */
+	border: none;
+	/* ボタンの枠線をなくす */
+	border-radius: 5px;
+	/* ボタンの角を丸くする */
+	cursor: pointer;
+	/* ボタンにカーソルを当てたときのスタイル */
+	margin: 2px;
+	/* ボタンのマージン */
+}
+
+#prev:hover {
+	background-color: #4caf50;
+	/* マウスオーバー時の背景色 */
+}
+
+/* 次の月に移動するボタンのスタイル */
+#next {
+	background-color: #4caf50;
+	/* ボタンの背景色 */
+	color: #ffffff;
+	/* ボタンの文字色 */
+	font-size: 16px;
+	/* ボタンの文字サイズ */
+	border: none;
+	/* ボタンの枠線をなくす */
+	border-radius: 5px;
+	/* ボタンの角を丸くする */
+	cursor: pointer;
+	/* ボタンにカーソルを当てたときのスタイル */
+	margin: 2px;
+	/* ボタンのマージン */
+}
+
+#next:hover {
+	background-color: #388e3c;
+	/* マウスオーバー時の背景色 */
+}
+
+/* 今日の日付のスタイル */
+.today .button-num {
+	background-color: #ff9999;
+}
+
+/* 前月と翌月の日付のスタイル */
+.disabled .button-num {
+	color: #ccc;
+}
+
+body {
+	font-family: Arial, sans-serif;
+	margin: 0;
+	padding: 0;
+}
+
+header {
+	background-color: rgb(232, 255, 252);
+	padding: 10px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+#addButton {
+	background-color: #4caf50;
+	/* ボタンの背景色 */
+	color: #ffffff;
+	/* ボタンの文字色 */
+	font-size: 16px;
+	/* ボタンの文字サイズ */
+	padding: 10px 20px;
+	/* ボタンの内側の余白 */
+	cursor: pointer;
+	/* ボタンにカーソルを当てたときのスタイル */
+	float: right;
+	/* 右側に配置 */
+}
+
+#addButton:hover {
+	background-color: #4caf50;
+	/* マウスオーバー時の背景色 */
+}
+
+.center-cell {
+	text-align: center;
+}
+
+.right-align-container {
+	text-align: right;
+	font-size: 40px;
+	font-weight: bold;
+	color: rgb(0, 0, 0);
+}
+
+div.ca {
+	float: left;
+	padding-right: 20px;
+}
+
+
+.budget-amount {
+	position: absolute;
+	right: 0;
+	
+}
+
+.over-budget{
+	color:red
+}
+
+.long-hr {
+    width: 260%; /* 80%の幅に指定 */
+    margin: auto; /* 水平方向に中央寄せ */
+    border-width: 5px
+}
+.custom-button {
+    /* 通常のスタイル */
+    padding: 10px 20px;
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    
+    position: absolute;
+    top: 180px; /* 画面上端からの距離 */
+    right: 20px; /* 画面右端からの距離 */
+}
+
+.custom-button:hover {
+    /* ホバー時のスタイル */
+    background-color: #4caf50;
+}
+
+.right_container {
+    position: absolute;
+    top: 360px; /* 画面上端からの距離 */
+    right: 20px; /* 画面右端からの距離 */
+    display: inline-block;
+    font-size: 50px; /* 任意のサイズに変更 */
+
+}
+
+.left_container {
+	font-size: 50px; 
+}
+.LogoutButton{
+	background-color: #4caf50;
+	/* ボタンの背景色 */
+	color: rgb(255, 255, 255);
+	/* ボタンの文字色 */
+	font-size: 16px;
+	/* ボタンの文字サイズ */
+	padding: 10px 20px;
+	/* ボタンの内側の余白 */
+	cursor: pointer;
+	/* ボタンにカーソルを当てたときのスタイル */
+}
+
+.today {
+    background-color: rgb(0, 255, 64); /* 任意の背景色 */
+    color: rgb(0, 255, 64);
+    font-weight: bold;
+}

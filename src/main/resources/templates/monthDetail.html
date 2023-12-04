@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf/org">
+<link rel="stylesheet" th:href="@{/css/monthDetail.css}">
+
+<head>
+	<meta charset="UTF-8">
+	<title>支払い詳細</title>
+</head>
+
+<body>
+	<div>
+		<header>
+			<h1 id="header">今月の支払い詳細</h1>
+			<form method="get" th:action="@{/list}" class="form-container">
+				<button class="ListBtn">前のページへ</button>
+			</form>
+		</header>
+	</div>
+	<div>
+		<th:each="monthPayments:${monthPayments}">
+			<span class="totalpayment" th:text="'現在の支払い合計 ' + ${monthPayments.totalpayment ?: 0} + ' 円'"
+				th:style="${monthPayments.totalpayment > monthPayments.budgetamount} ? 'font-size: 50px; color: red;' : 'font-size: 50px; color: black;'">
+			</span>
+			<span class="budgetamount" th:text="'予算上限 ' + (${monthPayments.budgetamount} ?: 0) + ' 円'"></span>
+			<form method="post" th:action="@{/budgetChange}" id="budgetChange">
+				<input type="text" id="budgebox" name="budgebox" placeholder="予算を変更・登録">
+				<button type="submit" id="submitBtn">登録</button>
+			</form>
+	</div>
+	<hr>
+	<div>
+		<h1>支払い一覧</h1>
+	</div>
+	<div class="container mt-4">
+		<table class="budget-table">
+			<thead>
+				<tr>
+					<th class="th-width"><label th:text="#{ProductName}"></label></th>
+					<th class="th-width"><label th:text="#{Type}"></th>
+					<th class="th-width"><label th:text="#{Format}"></th>
+					<th class="th-width"><label th:text="#{Text}"></th>
+					<th class="th-width"><label th:text="#{Money}"></th>
+					<th class="th-width"><label th:text="#{PaymentDay}"></th>
+					<th class="th-width"><label th:text="#{Operation}"></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="budge : ${budge}">
+					<td th:text="${budge.itemname}"></td>
+					<td>
+						<span th:if="${budge.type == 1}">住宅費</span>
+						<span th:if="${budge.type == 2}">食費</span>
+						<span th:if="${budge.type == 3}">水道光熱費</span>
+						<span th:if="${budge.type == 4}">通信費</span>
+						<span th:if="${budge.type == 5}">車両・交通費</span>
+						<span th:if="${budge.type == 6}">保険料</span>
+						<span th:if="${budge.type == 7}">学費</span>
+						<span th:if="${budge.type == 8}">その他</span>
+					</td>
+					<td>
+						<span th:if="${budge.format == 1}">変動費</span>
+						<span th:if="${budge.format == 2}">固定費</span>
+					</td>
+					<td th:text="${budge.text}"></td>
+					<td th:text="${budge.money}"></td>
+					<td th:text="${#dates.format(budge.registrationdate, 'yyyy-MM-dd')}"></td>
+					<td>
+						<div class="btn-group" role="group" aria-label="Button Group">
+							<!-- 削除ボタン -->
+							<form action="/delete" method="post" class="btn-group">
+								<input type="hidden" name="itemid" th:value="${budge.itemid}" />
+								<button type="submit" class="btn btn-danger">削除</button>
+							</form>
+						</div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+
+	</div>
+	<div>
+		<h1>今月の固定費</h1>
+		<table class="budget-table">
+			<thead>
+				<tr>
+					<th class="th-width">品名</th>
+					<th class="th-width">種別</th>
+					<th class="th-width">形式</th>
+					<th class="th-width">理由</th>
+					<th class="th-width">金額（円)</th>
+					<th class="th-width">支払い日</th>
+					<th class="th-width">操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="detailFixed : ${detailFixed}">
+					<td th:text="${detailFixed.itemname}"></td>
+					<td>
+						<span th:if="${detailFixed.type == 1}">住宅費</span>
+						<span th:if="${detailFixed.type == 2}">食費</span>
+						<span th:if="${detailFixed.type == 3}">水道光熱費</span>
+						<span th:if="${detailFixed.type == 4}">通信費</span>
+						<span th:if="${detailFixed.type == 5}">車両・交通費</span>
+						<span th:if="${detailFixed.type == 6}">保険料</span>
+						<span th:if="${detailFixed.type == 7}">学費</span>
+						<span th:if="${detailFixed.type == 8}">その他</span>
+					</td>
+					<td>
+						<span th:if="${detailFixed.format == 1}">変動費</span>
+						<span th:if="${detailFixed.format == 2}">固定費</span>
+					</td>
+					<td th:text="${detailFixed.text}"></td>
+					<td th:text="${detailFixed.money}"></td>
+					<td th:text="${#dates.format(detailFixed.registrationdate, 'yyyy-MM-dd')}"></td>
+					<td>
+						<div class="btn-group" role="group" aria-label="Button Group">
+							<!-- 削除ボタン -->
+							<form action="/delete" method="post" class="btn-group">
+								<input type="hidden" name="itemid" th:value="${detailFixed.itemid}" />
+								<button type="submit" class="btn btn-danger">削除</button>
+							</form>
+						</div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div>
+		<h1>過去の固定費</h1>
+		<table class="budget-table">
+			<thead>
+				<tr>
+					<th class="th-width">品名</th>
+					<th class="th-width">種別</th>
+					<th class="th-width">形式</th>
+					<th class="th-width">理由</th>
+					<th class="th-width">金額（円）</th>
+					<th class="th-width">支払い日</th>
+					<th class="th-width">操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="pastFixed : ${pastFixed}">
+					<td th:text="${pastFixed.itemname}"></td>
+					<td>
+						<span th:if="${pastFixed.type == 1}">住宅費</span>
+						<span th:if="${pastFixed.type == 2}">食費</span>
+						<span th:if="${pastFixed.type == 3}">水道光熱費</span>
+						<span th:if="${pastFixed.type == 4}">通信費</span>
+						<span th:if="${pastFixed.type == 5}">車両・交通費</span>
+						<span th:if="${pastFixed.type == 6}">保険料</span>
+						<span th:if="${pastFixed.type == 7}">学費</span>
+						<span th:if="${pastFixed.type == 8}">その他</span>
+					</td>
+					<td>
+						<span th:if="${pastFixed.format == 1}">変動費</span>
+						<span th:if="${pastFixed.format == 2}">固定費</span>
+					</td>
+					<td th:text="${pastFixed.text}"></td>
+					<td th:text="${pastFixed.money}"></td>
+					<td th:text="${#dates.format(pastFixed.registrationdate, 'yyyy-MM-dd')}"></td>
+					<td>
+						<div class="btn-group" role="group" aria-label="Button Group">
+							<!-- 削除ボタン -->
+							<form action="/insert" method="post" class="btn-group">
+								<input type="hidden" name="itemid" th:value="${pastFixed.itemid}" />
+								<button type="submit" class="btn btn-danger">追加</button>
+							</form>
+						</div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+
+</html>
